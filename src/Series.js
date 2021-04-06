@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Series = () => {
   const [data, setData] = useState([]);
+
   useEffect(() => {
     axios.get("/api/series").then((res) => {
       setData(res.data.data);
@@ -40,12 +41,20 @@ const Series = () => {
   if (data.length === 0) {
     return (
       <div className="container">
-        <h1>Séries</h1>
-        <Link to="/series/novo" className="btn btn-primary">
-          Nova Série
-        </Link>
+          <div className="row align-items-center">
+              <div className="col-sm">
+                  <h1> Séries </h1>
+              </div>
+              <div className="col-sm">
+              </div>
+              <div className="col-sm">
+                  <Link to="/series/novo" className="btn btn-primary">
+                      Nova Série
+                  </Link>
+              </div>
+          </div>
         <div className="alert alert-warning" role="alert">
-          Nenhuma série encontrado
+          Você não possui séries criadas ainda.
         </div>
       </div>
     );
@@ -53,21 +62,33 @@ const Series = () => {
 
   return (
     <div className="container">
-      <h1>Séries</h1>
-      <Link to="/series/novo" className="btn btn-primary">
-        Nova Série
-      </Link>
-      <table className="table table-dark">
-        <thead>
+        <div className="row align-items-center">
+            <div className="col-sm">
+                <h1> Séries </h1>
+            </div>
+            <div className="col-sm">
+            </div>
+            <div className="col-sm">
+                <Link to="/series/novo" className="btn btn-primary">
+                    Nova Série
+                </Link>
+            </div>
+        </div>
+      <div>
+      </div>
+        <br />
+      <table className="table table-striped table-hover">
+        <thead className="thead-dark">
           <tr>
             <th scope="col">ID</th>
-            <th scope="col">Série</th>
-            <th scope="col">Ações</th>
+            <th scope="col">NOME</th>
+            <th scope="col">AÇÕES</th>
           </tr>
         </thead>
         <tbody>{data.map(renderizaLinha)}</tbody>
       </table>
     </div>
+
   );
 };
 

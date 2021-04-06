@@ -29,7 +29,7 @@ const NovoGenero = () => {
         <div className="form-group">
           <label htmlFor="name">Nome</label>
           <input
-            type="email"
+            type="text"
             value={name}
             onChange={onChange}
             className="form-control"
