@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import {Badge} from "reactstrap";
 
 const Series = () => {
   const [data, setData] = useState([]);
@@ -21,13 +22,16 @@ const Series = () => {
   const renderizaLinha = (record) => {
     return (
       <tr key={record.id}>
-        <th scope="row">{record.id}</th>
-        <td>{record.name}</td>
+        <th scope="row">{record.name}</th>
+        <td>{record.id}</td>
+        <td>{record.status === "ASSISTIDO" && (
+              <Badge color="success">Assistido</Badge>
+            )}
+            {record.status === "PARA_ASSISTIR" && (
+                <Badge color="warning">Para Assistir</Badge>
+            )}</td>
         <td>
-          <button
-            className="btn btn-danger"
-            onClick={() => deleteSerie(record.id)}
-          >
+          <button className="btn btn-danger" onClick={() => deleteSerie(record.id)}>
             Remover
           </button>
           <Link to={"/series/" + record.id} className="btn btn-warning">
@@ -59,7 +63,6 @@ const Series = () => {
       </div>
     );
   }
-
   return (
     <div className="container">
         <div className="row align-items-center">
@@ -74,21 +77,18 @@ const Series = () => {
                 </Link>
             </div>
         </div>
-      <div>
-      </div>
-        <br />
       <table className="table table-striped table-hover">
         <thead className="thead-dark">
           <tr>
-            <th scope="col">ID</th>
             <th scope="col">NOME</th>
+            <th scope="col">GÊNERO</th>
+            <th scope="col">ASSISTIDO</th>
             <th scope="col">AÇÕES</th>
           </tr>
         </thead>
         <tbody>{data.map(renderizaLinha)}</tbody>
       </table>
     </div>
-
   );
 };
 
